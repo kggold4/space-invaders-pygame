@@ -1,6 +1,7 @@
+import copy
 from typing import Tuple
 
-from consts import WindowConsts, CharacterConsts
+from consts import WindowConsts, EnemyConsts
 import numpy as np
 
 
@@ -22,8 +23,13 @@ class Character:
         if self.axis[1] >= WindowConsts.WINDOW_SIZE[1] - self.pixel_size:
             self.axis[1] = WindowConsts.WINDOW_SIZE[1] - self.pixel_size
 
+    def get_middle_axis(self) -> Tuple[int, int]:
+        middle_axis = copy.copy(self.axis)
+        middle_axis += np.array([EnemyConsts.ENEMY_PIXEL_SIZE / 2, EnemyConsts.ENEMY_PIXEL_SIZE / 2])
+        return tuple(middle_axis)
+
     def add_axis(self, delta_axis: np.array):
-        raise NotImplementedError
+        self.axis += delta_axis
 
     def get_axis(self) -> Tuple[int, int]:
-        raise NotImplementedError
+        return tuple(self.axis)
